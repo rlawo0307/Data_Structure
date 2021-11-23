@@ -1,7 +1,6 @@
 #pragma warning(disable:4996)
 
 #include <stdio.h>
-#include "Sort.h"
 
 void CreateArr(int*, int, int);
 void PrintArr(int*, int, int);

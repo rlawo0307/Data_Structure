@@ -36,7 +36,7 @@
     <ClCompile Include="Heap.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Dequeue.cpp">
+    <ClCompile Include="Deque.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
