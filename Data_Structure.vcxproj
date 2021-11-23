@@ -148,8 +148,10 @@
     <ClCompile Include="LinkedList.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Queue.cpp" />
-    <ClCompile Include="Stack.cpp" />
+    <ClCompile Include="CircularQueue.cpp" />
+    <ClCompile Include="Stack.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Tree.cpp" />
   </ItemGroup>
   <ItemGroup>
