@@ -14,9 +14,9 @@ void Display(int*, int, int);
 
 int main()
 {
-	int queue[MAX_QUEUE_SIZE] = { 0, };
-	int front = 0;
-	int rear = 0;
+	int queue[MAX_QUEUE_SIZE] = { 0, }; // 저장할 수 있는 개수는 Size-1
+	int front = 0; // 첫번째 요소 하나 앞의 인덱스, 새로운 값이 들어갈 수 없는 공간
+	int rear = 0; // 마지막 요소의 인덱스
 	int val = 1;
 	int size;
 
