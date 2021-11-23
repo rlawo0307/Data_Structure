@@ -2,32 +2,50 @@
 
 #include <stdio.h>
 
-#define MAX_QUEUE_SIZE 5
+#define MAX_QUEUE_SIZE 8
 
 bool IsEmpty(int, int);
 bool IsFull(int, int);
-void AddQueue(int*, int*, int);
-void DelQueue(int*, int*);
-void PrintQueue(int*, int, int);
+void Enqueue(int*, int*, int*, int);
+void Dequeue(int*, int*, int*);
+void Peek(int*, int);
+void Size(int, int);
+void Display(int*, int, int);
 
 int main()
 {
 	int queue[MAX_QUEUE_SIZE] = { 0, };
-	int front = -1;
-	int rear = -1;
+	int front = 0;
+	int rear = 0;
 	int val = 1;
+	int size;
 
-	while (!IsFull(front, rear))
-	{
-		AddQueue(queue, &rear, val);
-		PrintQueue(queue, front, rear);
-		val++;
-	}
-	while (!IsEmpty(front, rear))
-	{
-		DelQueue(queue, &front);
-		PrintQueue(queue, front, rear);
-	}
+	for (int i = 1; i <= 8; i++)
+		Enqueue(queue, &front, &rear, i);
+	Display(queue, front, rear);
+	Size(front, rear);
+
+	Dequeue(queue, &front, &rear);
+	Dequeue(queue, &front, &rear);
+	Display(queue, front, rear);
+	Size(front, rear);
+
+	Enqueue(queue, &front, &rear, 8);
+	Enqueue(queue, &front, &rear, 9);
+	Enqueue(queue, &front, &rear, 10); //Fail
+	Dequeue(queue, &front, &rear);
+	Display(queue, front, rear);
+	Size(front, rear);
+
+	Enqueue(queue, &front, &rear, 10);
+	Display(queue, front, rear);
+	Size(front, rear);
+
+	Enqueue(queue, &front, &rear, 11); // Fail
+	Display(queue, front, rear);
+	Size(front, rear);
+
+	Peek(queue, front);
 	return 0;
 }
 
@@ -40,32 +58,54 @@ bool IsEmpty(int front, int rear)
 
 bool IsFull(int front, int rear)
 {
-	if (front == -1 && rear == MAX_QUEUE_SIZE - 1)
-		return true;
-	if(front == (rear+1)%MAX_QUEUE_SIZE)
+	if (front == (rear+1) % MAX_QUEUE_SIZE)
 		return true;
 	return false;
 }
 
-void AddQueue(int* queue, int* rear, int val)
+void Enqueue(int* queue, int* front, int* rear, int val)
 {
+	if (IsFull(*front, *rear))
+	{
+		printf("Queue if full : %d\n", val);
+		return;
+	}
 	*rear = (*rear + 1) % MAX_QUEUE_SIZE;
 	queue[*rear] = val;
 }
 
-void DelQueue(int* queue, int* front)
+void Dequeue(int* queue, int* front, int* rear)
 {
-	*front = (*front + 1) % MAX_QUEUE_SIZE;
+	if (IsEmpty(*front, *rear))
+	{
+		printf("Queue is Empty\n");
+		return;
+	}
+	*front = (*front + 1) % MAX_QUEUE_SIZE; 
 	printf("Pop : %d\n", queue[*front]);
 }
 
-void PrintQueue(int* queue, int front, int rear)
+void Peek(int* queue, int front)
+{
+	printf("%d", queue[front+1]);
+}
+
+void Size(int front, int rear)
+{
+	printf("size : ");
+	if (rear < front)
+		printf("%d\n", MAX_QUEUE_SIZE - front + rear);
+	else
+		printf("%d\n", rear - front);
+}
+
+void Display(int* queue, int front, int rear)
 {
 	if (rear < front)
 		rear += MAX_QUEUE_SIZE;
 
 	printf("(front) ");
-	for (int i = front+1; i <= rear; i++)
+	for (int i = front + 1; i <= rear; i++)
 		printf("%d ", queue[i%MAX_QUEUE_SIZE]);
 	printf("(rear)\n");
 }
