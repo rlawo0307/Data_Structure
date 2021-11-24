@@ -1,8 +1,8 @@
-#pragma warning(disable:4996)
+#pragma once
 
 #include <stdio.h>
 
-#define MAX_QUEUE_SIZE 8
+#define MAX_QUEUE_SIZE 100
 
 bool IsEmpty(int front, int rear)
 {
@@ -63,39 +63,4 @@ void Display(int* queue, int front, int rear)
 	for (int i = front + 1; i <= rear; i++)
 		printf("%d ", queue[i % MAX_QUEUE_SIZE]);
 	printf("(rear)\n");
-}
-
-int main()
-{
-	int queue[MAX_QUEUE_SIZE] = { 0, }; // 저장할 수 있는 개수는 Size-1
-	int front = 0; // 첫번째 요소 하나 앞의 인덱스, 새로운 값이 들어갈 수 없는 공간
-	int rear = 0; // 마지막 요소의 인덱스
-
-	for (int i = 1; i <= 8; i++)
-		Enqueue(queue, &front, &rear, i);
-	Display(queue, front, rear);
-	Size(front, rear);
-
-	Dequeue(queue, &front, &rear);
-	Dequeue(queue, &front, &rear);
-	Display(queue, front, rear);
-	Size(front, rear);
-
-	Enqueue(queue, &front, &rear, 8);
-	Enqueue(queue, &front, &rear, 9);
-	Enqueue(queue, &front, &rear, 10); //Fail
-	Dequeue(queue, &front, &rear);
-	Display(queue, front, rear);
-	Size(front, rear);
-
-	Enqueue(queue, &front, &rear, 10);
-	Display(queue, front, rear);
-	Size(front, rear);
-
-	Enqueue(queue, &front, &rear, 11); // Fail
-	Display(queue, front, rear);
-	Size(front, rear);
-
-	Peek(queue, front);
-	return 0;
 }
