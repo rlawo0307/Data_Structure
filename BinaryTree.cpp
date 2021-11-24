@@ -188,7 +188,8 @@ int main()
 	PreOrderTraverse(tree->root); // 전위 순회
 	printf("\nsize : %d degree : %d height : %d\n\n", tree->size, tree->degree, tree->height);
 	
-	DeleteNode(tree, 54);
+	DeleteNode(tree, 54); // Fail
 
+	IsInTree(tree, 54); //Fail
 }
 
