@@ -56,7 +56,7 @@ bool IsEmpty(int front, int rear)
 
 bool IsFull(int front, int rear)
 {
-	if (front == (rear+1) % MAX_QUEUE_SIZE)
+	if (front == (rear + 1) % MAX_QUEUE_SIZE)
 		return true;
 	return false;
 }
@@ -65,7 +65,7 @@ void Enqueue(int* queue, int* front, int* rear, int val)
 {
 	if (IsFull(*front, *rear))
 	{
-		printf("Queue if full : %d\n", val);
+		printf("Queue is full : %d\n", val);
 		return;
 	}
 	*rear = (*rear + 1) % MAX_QUEUE_SIZE;
