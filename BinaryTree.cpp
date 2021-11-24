@@ -191,5 +191,5 @@ int main()
 	DeleteNode(tree, 54); // Fail
 
 	IsInTree(tree, 54); //Fail
+	return 0;
 }
-
