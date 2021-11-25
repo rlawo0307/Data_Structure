@@ -1,61 +1,64 @@
 #pragma warning(disable:4996)
 
-#include <stdlib.h>
-#include "queue.h"
+#include <stdio.h>
 
 #define MAX_HEAP_SIZE 16
 
-void AddNode(int* heap, int* q, int data)
+void Display(int* heap, int cnt)
 {
-
+	for (int i = 0; i <= cnt; i++)
+		printf("%d ", heap[i]);
+	printf("\n");
 }
 
-void DeleteNode(Tree* tree, int data)
+void Swap(int* heap, int i, int j)
 {
-	bool check = false;
-	IsInTree(tree->root, data, &check);
-	if (!check)
+	int tmp = heap[i];
+	heap[i] = heap[j];
+	heap[j] = tmp;
+}
+
+void AddNode(int* heap, int data, int* cnt)
+{
+	if (*cnt == 0) // root
 	{
-		printf("* No Such Data : %d\n", data);
+		(*cnt)++;
+		heap[*cnt] = data;
 		return;
 	}
-
-	Node* target = tree->root;
-	Node* tmp = NULL;
-	while (1)
+	else
 	{
-		if (target->data > data)
+		int cur = *cnt + 1;
+		int parent;
+
+		heap[cur] = data;
+
+		parent = cur / 2;
+		while (heap[parent] <= heap[cur] && cur > 1)
 		{
-			if (target->left != NULL)
-				if (target->left->data == data)
-				{
-					tmp = target->left;
-					target->left = NULL;
-					(target->degree)--;
-					break;
-				}
-				else
-					target = target->left;
+			Swap(heap, parent, cur);
+			cur = parent;
+			parent = cur / 2;
 		}
-		else
-		{
-			if (target->right != NULL)
-				if (target->right->data == data)
-				{
-					tmp = target->right;
-					target->right = NULL;
-					(target->degree)--;
-					break;
-				}
-				else
-					target = target->right;
-		}
+		(*cnt)++;
 	}
-	printf("* Delete :%d\n", tmp->data);
-	FindTarget(tree, tmp->left, tmp->left->data);
-	FindTarget(tree, tmp->right, tmp->right->data);
-	(tree->size)--;
-	free(tmp);
+}
+
+void DeleteNode(int* heap, int* cnt)
+{
+	int cur, child;
+
+	Swap(heap, 1, *cnt);
+	heap[(*cnt)--] = 0;
+
+	cur = 1;
+	child = cur * 2;
+	while (heap[cur] < heap[child] && child <= *cnt)
+	{
+		Swap(heap, cur, child);
+		cur = child;
+		child = cur * 2;
+	}
 }
 
 void SerachNode()
@@ -66,8 +69,12 @@ void SerachNode()
 int main()
 {
 	int heap[MAX_HEAP_SIZE] = { 0, };
-	int queue[MAX_QUEUE_SIZE] = { 0, };
+	int cnt = 0;
 
-	AddNode(heap, q, 13);
+	for (int i = 13; i >= 1; i--)
+		AddNode(heap, i, &cnt);
+	Display(heap, cnt);
+	DeleteNode(heap, &cnt);
+	Display(heap, cnt);
 	return 0;
 }
