@@ -45,6 +45,7 @@ void AddNode(int* heap, int data, int* cnt)
 	}
 }
 
+//Heap Sort 시간복잡도 : O(NlogN)
 void DeleteNode(int* heap, int* cnt)
 {
 	int cur, child;
