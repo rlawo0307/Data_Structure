@@ -1,6 +1,7 @@
 #pragma warning(disable:4996)
 
 #include <stdio.h>
+#include "Queue.h"
 
 #define MAX_HEAP_SIZE 16
 
@@ -61,9 +62,32 @@ void DeleteNode(int* heap, int* cnt)
 	}
 }
 
-void SerachNode()
+void SerachNode(int* heap, int data)
 {
+	int cur;
 
+	Queue* q = (Queue*)calloc(sizeof(Queue), 1);
+	InitQueue(q);
+	Enqueue(q, 1); // root
+	while (1)
+	{
+		cur = Dequeue(q);
+		if (cur == -1)
+		{
+			printf("No Such Data : %d\n", data);
+			return;
+		}
+		if (heap[cur] == data)
+		{
+			printf("heap[%d] = %d\n", cur, heap[cur]);
+			return;
+		}
+		else if (heap[cur] > data)
+		{
+			Enqueue(q, cur*2); // left
+			Enqueue(q, cur * 2 + 1); // right
+		}
+	}
 }
 
 int main()
@@ -76,5 +100,8 @@ int main()
 	Display(heap, cnt);
 	DeleteNode(heap, &cnt);
 	Display(heap, cnt);
+
+	SerachNode(heap, 1);
+	SerachNode(heap, 34);
 	return 0;
 }
